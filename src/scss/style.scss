@@ -54,9 +54,9 @@ body {
 }
 
 .chuckbox {
-  width: 30vw;
-  height: 30vw;
-  background-color: lightblue;
+  width: 500px;
+  height: 400px;
+  background-color: grey;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -65,5 +65,5 @@ body {
 
 button {
   margin: auto;
-  padding 1em;
+  padding: 1em;
 }
