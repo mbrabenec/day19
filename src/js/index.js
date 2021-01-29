@@ -1,49 +1,66 @@
 class Rating {
 
   constructor(rating) {
-    this.rating = rating;
-    this.element = this._createIt();
-    
+    this.value = rating;
+
   }
-  _createIt() {
+  render() {
     const div = document.createElement("div");
     div.innerHTML = `
     <div class="rating">
-    <div class="rating__value">3</div>
+    <div class="rating__value"></div>
     <div class="rating__stars">
-      <div class="rating__star rating__star--on"></div>
-      <div class="rating__star rating__star--on"></div>
-      <div class="rating__star rating__star--on"></div>
+      <div class="rating__star"></div>
+      <div class="rating__star"></div>
+      <div class="rating__star"></div>
       <div class="rating__star"></div>
       <div class="rating__star"></div>
     </div>
   </div>`
+
   Array.from(div.querySelectorAll(".rating__star"))
     .forEach((star, index) => {
-    star.addEventListener("click", this.updateAll(index + 1));
-    if(index < this.rating ) {
+    star.addEventListener("click", () => {
+      this.value = index + 1;
+      this.update();
+    });
+    if (index < this.value) {
       star.classList.add("rating__star--on");
     } else {
-      star.classList.remove("rating__star--on")
+      star.classList.remove("rating__star--on");
     }
-    });
+  });
 
-    div.querySelector(".rating__value").textContent = this.rating;
-  
-  return div;
-}
+    div.querySelector(".rating__value").textContent = this.value;
 
-  updateAll (score) {
-    let a = console.log(this.element);
-  }                                                     
+    return div;
+  } 
 
-  renderTo(elem) {
+  mount(elem) {
+    this.element = this.render();
     elem.appendChild(this.element);
   }
+
+  update() {
+
+    this.element.querySelector(".rating__value").textContent = this.value;
+
+    let stars = this.element.querySelectorAll(".rating__star")
+    Array.from(stars).forEach((star, index) => {
+      if (index < this.value) {
+        star.classList.add("rating__star--on");
+      } else {
+        star.classList.remove("rating__star--on");
+      }
+    })
+  }
+
+                                            
 }
 
+
 const m1 = new Rating(2);
-m1.renderTo(document.body);
+m1.mount(document.body);
 
 
 
